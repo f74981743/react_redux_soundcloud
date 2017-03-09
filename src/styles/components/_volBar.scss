@@ -1,0 +1,47 @@
+.vol-btn {
+    .vol-svg {
+        display: inline;
+    }
+    .muted-svg {
+        display: none;
+    }
+}
+
+.vol-btn.muted {
+    .vol-svg {
+        display: none;
+    }
+
+    .muted-svg {
+        display: inline;
+    }
+}
+
+.vol-bar {
+    display: inline-block;
+    width: 30%;
+    height: 50px;
+    cursor: pointer;
+    position: relative;
+    vertical-align: middle;
+}
+
+.vol-bar-inner {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    right: 5px;
+    top: 22px;
+    height: 4px;
+    background-color: rgb(117,222,243);
+}
+
+.vol-current {
+    position: absolute;
+    height: 5px;
+    width: 1px;
+    background-color: #258fb8;
+    -webkit-transition: 0.2s all;
+    transition: 0.2s all;
+	opacity: 0.7;
+}

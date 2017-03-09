@@ -1,0 +1,7 @@
+@import './components/progressBar';
+@import './components/controlPanel';
+@import './components/volBar';
+
+html, body, #root, .main-content {
+  height: 100%;
+}

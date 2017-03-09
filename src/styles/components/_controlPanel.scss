@@ -1,0 +1,55 @@
+.control-panel {
+    position: relative;
+    height: 60px;
+    width: 100%;
+    padding: 5px 2%;
+    box-sizing: border-box;
+}
+
+.controller {
+    overflow: visible;
+    white-space: nowrap;
+    float: right;
+    width: 60%;
+    height: 50px;
+    line-height: 50px;
+    text-align: right;
+    transition: color .25s ease, background-color .25s ease, opacity .5s ease;
+    vertical-align: middle;
+
+    svg {
+        width: 18px;
+        height: 18px;
+        vertical-align: middle;
+        path {
+            fill: black;
+        }
+    }
+}
+
+.song-info {
+    overflow: hidden;
+    float: left;
+    width: 40%;
+    p {
+        margin: 2px;
+        white-space: nowrap;
+        word-wrap: normal;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+.btn {
+    color: #fff;
+    margin: 0 8px;
+    font-size: 18px;
+    -webkit-transition:0.3s all;
+	transition:0.3s all;	
+	-moz-transition:0.3s all;		
+	cursor: pointer;
+}
+
+.hide {
+    display: none;
+}
