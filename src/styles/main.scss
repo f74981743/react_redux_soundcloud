@@ -1,6 +1,8 @@
-@import './components/progressBar';
-@import './components/controlPanel';
-@import './components/volBar';
+@import './components/Player/progressBar';
+@import './components/Player/controlPanel';
+@import './components/Player/volBar';
+@import './components/Player/player';
+@import './components/Stream/tracksBoard';
 
 html, body, #root, .main-content {
   height: 100%;

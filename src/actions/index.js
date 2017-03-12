@@ -60,7 +60,7 @@ export function setMuted(isMuted) {
 export function auth() {
     return function (dispatch) {
         SC.connect().then((session) => {
-            dispatch(fetchMe(session));
+            //dispatch(fetchMe(session));
             dispatch(fetchStream(session));
         });
     };
@@ -83,7 +83,7 @@ function fetchMe(session) {
     }
 };
 
-function fetchStream(session) {
+export function fetchAllTracks() {
     return function (dispatch) {
         fetch(`//api.soundcloud.com/tracks?client_id=${CLIENT_ID}`)
             .then((response) => response.json())

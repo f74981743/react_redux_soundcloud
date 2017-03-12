@@ -23,7 +23,7 @@ export default class Player extends Component {
     render() {
         const { src, player, actions } = this.props;
         return (
-            <div>
+            <div className="player">
                 <Audio
                     src={src}
                     player={player}

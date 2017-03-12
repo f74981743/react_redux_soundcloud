@@ -12,28 +12,36 @@ class Stream extends Component {
         super(props, context);
     }
 
+    componentDidMount() {
+        const { actions } = this.props;
+        actions.fetchAllTracks();
+    }
+
     render() {
         const { actions, player, user, tracks, activeTrack } = this.props;
         return (
             <div>
                 <div>
-                    {
+                    {/*
                         user ?
                             <div>{user.username}</div> :
                             <button onClick={actions.auth} type="button">Login</button>
-                    }
+                    */}
                 </div>
                 <br/>
-                <div>
+                <div className="tracks-board">
                     {
                     tracks.map((track, key) => {
                         return (
-                            <div className="track" key={key}>
+                            <div className="track" onDoubleClick={()=> {
+                                actions.playTrack(track);
+                                actions.handlePlay();
+                            }} key={key}>
                                 {track.title}
-                                <button type="button" onClick={()=> {
+                                {/*<button type="button" onClick={()=> {
                                     actions.playTrack(track);
                                     actions.handlePlay();
-                                }}>Play</button>
+                                }}>Play</button>*/}
                             </div>
                         );
                     })

@@ -64,14 +64,14 @@ export default class ControlPanel extends Component {
 
         return (
             <div className='control-panel'>
-                <div className='song-info'>
+                {/*<div className='song-info'>
                     <div className='cover-image'>
                     </div>
                     <div className='song-detail'>
                     </div>
                     <p className='song'></p>
                     <p className='artist'></p>
-                </div>
+                </div>*/}
                 <div className='controller'>
                     <span className='play-btn btn'>
                         <i className={playBtnCls} dangerouslySetInnerHTML={{__html: SVG.play}} onClick={this.handlePlay.bind(this)}></i>
