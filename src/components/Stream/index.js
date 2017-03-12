@@ -12,21 +12,8 @@ class Stream extends Component {
         super(props, context);
     }
 
-    componentDidUpdate() {
-        const audioElement = ReactDOM.findDOMNode(this.refs.audio);
-
-        if (!audioElement) { return; }
-
-        const { activeTrack } = this.props;
-        if (activeTrack) {
-            audioElement.play();
-        } else {
-            audioElement.pause();
-        }
-    }
-
     render() {
-        const { actions, user, tracks, activeTrack } = this.props;
+        const { actions, player, user, tracks, activeTrack } = this.props;
         return (
             <div>
                 <div>
@@ -39,11 +26,14 @@ class Stream extends Component {
                 <br/>
                 <div>
                     {
-                    tracks.map((track, key) => {console.log(track);
+                    tracks.map((track, key) => {
                         return (
                             <div className="track" key={key}>
                                 {track.title}
-                                <button type="button" onClick={()=> actions.playTrack(track)}>Play</button>
+                                <button type="button" onClick={()=> {
+                                    actions.playTrack(track);
+                                    actions.handlePlay();
+                                }}>Play</button>
                             </div>
                         );
                     })
@@ -51,7 +41,7 @@ class Stream extends Component {
                 </div>
                 {
                     activeTrack ?
-                        <audio id="audio" ref="audio" src={`${activeTrack.stream_url}?client_id=${CLIENT_ID}`}></audio> :
+                        <Player src={`${activeTrack.stream_url}?client_id=${CLIENT_ID}`} player={player} actions={actions} /> :
                         null
                 }
             </div>

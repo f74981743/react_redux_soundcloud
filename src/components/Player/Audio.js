@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import ReactDOM from 'react-dom';
 
 export default class Audio extends Component {
     constructor(props, context) {
@@ -9,11 +10,11 @@ export default class Audio extends Component {
         return `${(currentTime / duration) * 100}%`
     }
 
-    handleTimeUpdate() {
+    handleTimeUpdate() {console.log('timeupdate');
+        const audioElement = ReactDOM.findDOMNode(this.refs.audio);
         const {actions, player} = this.props;
-        var currentTime = this.audio.currentTime;
-        var duration = this.audio.duration;
-        
+        var currentTime = audioElement.currentTime;
+        var duration = audioElement.duration;
         if (!player.isDragging) {
             actions.setCurrentTime(currentTime);
             actions.setDuration(duration);
@@ -21,23 +22,29 @@ export default class Audio extends Component {
         }
     }
 
-    componentDidMount() {
-        this.audio.addEventListener('timeupdate', e => (this.handleTimeUpdate && this.handleTimeUpdate()))
+    componentDidMount() {console.log('componentDidMount');
+        const audioElement = ReactDOM.findDOMNode(this.refs.audio);
+        audioElement.addEventListener('timeupdate', e => (this.handleTimeUpdate && this.handleTimeUpdate()))
+        //audioElement.addEventListener('timeupdate', this.handleTimeUpdate);
         this.componentWillReceiveProps(this.props);
     }
 
-    componentWillReceiveProps(props) {
-        const {player, playlist} = props;
-        if (playlist[0].src != this.audio.src) this.audio.src = playlist[0].src;
-        if (player.isPaused !== this.audio.paused) player.isPaused ? this.audio.pause() : this.audio.play();
-        if (player.volume != this.audio.volume) this.audio.volume = player.volume;
-        if (player.isMuted != this.audio.muted) this.audio.muted = player.isMuted;
+    componentWillReceiveProps(props) {console.log('componentWillReceiveProps');
+        const {src, player} = props;
+        const audioElement = ReactDOM.findDOMNode(this.refs.audio);
+        console.log(audioElement.paused, player.isPaused);
+        if (src != audioElement.src) audioElement.src = src;
+        if (player.isPaused !== audioElement.paused) {console.log('test', player.isPaused);
+            player.isPaused ? audioElement.pause() : audioElement.play();
+        }
+        if (player.volume != audioElement.volume) audioElement.volume = player.volume;
+        if (player.isMuted != audioElement.muted) audioElement.muted = player.isMuted;
     }
 
     render() {
-        const {playlist} = this.props;
+        const { src } = this.props;
         return (
-            <audio ref={(c) => this.audio = c} id='audio' src={playlist[0].src}></audio>
+            <audio ref='audio' id='audio' src={src}></audio>
         )
     }
 }

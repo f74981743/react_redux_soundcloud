@@ -6,7 +6,7 @@ import ProgressBar from './ProgressBar';
 import ControlPanel from './ControlPanel';
 import Audio from './Audio';
 
-class Player extends Component {
+export default class Player extends Component {
     constructor(props, context) {
         super(props, context);
     }
@@ -21,35 +21,23 @@ class Player extends Component {
     }
 
     render() {
-        const {playlist, player, actions} = this.props;
+        const { src, player, actions } = this.props;
         return (
             <div>
                 <Audio
+                    src={src}
                     player={player}
-                    playlist={playlist}
                     actions={actions}
                     muted={player.isMuted}
                 />
-                <ProgressBar {...this.props}
+                <ProgressBar
+                    {...this.props}
                     handleSlideProgress = {this.handleSlideProgress.bind(this)}
-                 />
-                <ControlPanel {...this.props} />
+                />
+                <ControlPanel
+                    {...this.props}
+                />
             </div>
         )
     }
 }
-
-function mapStateToProps(state) {
-    return { 
-        player: state.player,
-        playlist: state.playlist
-    }
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-        actions: bindActionCreators(Actions, dispatch)
-    };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Player);
