@@ -85,10 +85,10 @@ function fetchMe(session) {
 
 export function fetchAllTracks() {
     return function (dispatch) {
-        fetch(`//api.soundcloud.com/tracks?client_id=${CLIENT_ID}`)
+        fetch(`//api.soundcloud.com/tracks?linked_partitioning=1&client_id=${CLIENT_ID}`)
             .then((response) => response.json())
             .then((data) => {
-                dispatch(setTracks(data));
+                dispatch(setTracks(data.collection));
             });
     }
 }

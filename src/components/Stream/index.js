@@ -37,7 +37,11 @@ class Stream extends Component {
                                 actions.playTrack(track);
                                 actions.handlePlay();
                             }} key={key}>
-                                {track.title}
+                                <div className="track-img" style={{backgroundImage: 'url(' + track.artwork_url + ')'}}>
+                                </div>
+                                <div className="track-name">
+                                    { track.title }
+                                </div>
                                 {/*<button type="button" onClick={()=> {
                                     actions.playTrack(track);
                                     actions.handlePlay();
