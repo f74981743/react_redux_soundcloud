@@ -40,7 +40,11 @@ class Stream extends Component {
                                 <div className="track-img" style={{backgroundImage: 'url(' + track.artwork_url + ')'}}>
                                 </div>
                                 <div className="track-name">
-                                    { track.title }
+                                    <img src={track.user.avatar_url} />
+                                    <div className="track-detail">
+                                        <div className="title">{track.title}</div>
+                                        <div className="author">{track.user.username}</div>
+                                    </div>
                                 </div>
                                 {/*<button type="button" onClick={()=> {
                                     actions.playTrack(track);

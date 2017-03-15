@@ -3,10 +3,14 @@
     .track {
         width: 215px;
         height: 130px;
-        margin: 5px;
+        margin: 10px;
         float: left;
-        background: #d0d0d0;
+        background: white;
+        border: 1px solid #d4d3d4;
         padding: 5px;
+        &:hover {
+            border-color: lightblue;
+        }
         .track-img {
             width: 100%;
             height: 70px;
@@ -18,6 +22,25 @@
         .track-name {
             width: 100%;
             height: 35px;
+            font-size: 14px;
+            img {
+                width: 24px;
+                height: 24px;
+                float: left;
+                display: block;
+                border-radius: 100%;
+                margin-right: 3px;
+            }
+            .track-detail {
+                float: left;
+                width: 100%;
+                .title, .author {
+                    font-size: 11px;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            }
         }
     }
 }
