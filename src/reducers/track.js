@@ -2,6 +2,8 @@ import * as actionTypes from '../constants/ActionTypes';
 
 const initialState = {
     tracks: [],
+    nextHref: null,
+    isFetching: false,
     activeTrack: null
 };
 
@@ -11,16 +13,30 @@ export default function(state = initialState, action) {
             return setTracks(state, action);
         case actionTypes.TRACK_PLAY:
             return setPlay(state, action);
+        case actionTypes.SET_ISFETCHING:
+            return setIsFetching(state, action);
+        case actionTypes.SET_NEXT_HREF:
+            return setNextHref(state, action);
     }
     return state;
 }
 
 function setTracks(state, action) {
     const { tracks } = action;
-    return { ...state, tracks };
+    return { ...state, tracks: state.tracks.concat(tracks) };
 }
 
 function setPlay(state, action) {
     const { track } = action;
-    return { ...state, activeTrack: track }
+    return { ...state, activeTrack: track };
+}
+
+function setNextHref(state, action) {
+    const { nextHref } = action;
+    return { ...state, nextHref: nextHref };
+}
+
+function setIsFetching(state, action) {
+    const { isFetching } = action;
+    return { ...state, isFetching: isFetching };
 }

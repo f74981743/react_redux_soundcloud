@@ -26,9 +26,10 @@ class Stream extends Component {
     }
 
     onScroll() {
+        const { actions } = this.props;
         const tracksBoard = ReactDOM.findDOMNode(this.refs.tracksBoard);
         if (tracksBoard.scrollTop >= (tracksBoard.scrollHeight - tracksBoard.offsetHeight - 200)) {
-            console.log('scrollEnd');
+            actions.fetchAllTracks();
         }
     }
 
