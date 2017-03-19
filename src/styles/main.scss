@@ -4,7 +4,8 @@
 @import './components/Player/player';
 @import './components/Stream/tracksBoard';
 
-html, body, #root, .main-content {
+html, body, .container {
   height: 100%;
   background-color: #f4f4f4;
+  overflow: hidden;
 }

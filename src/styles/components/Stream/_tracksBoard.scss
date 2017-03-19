@@ -1,9 +1,12 @@
 .tracks-board {
     padding: 0 25px 0 25px;
+    height: 100%;
+    overflow: auto;
     .track {
         width: 215px;
         height: 130px;
         margin: 10px;
+        margin-left: 5%;
         float: left;
         background: white;
         border: 1px solid #d4d3d4;

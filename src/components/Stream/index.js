@@ -10,26 +10,33 @@ class Stream extends Component {
 
     constructor(props, context) {
         super(props, context);
+        this.onScroll = this.onScroll.bind(this);
     }
 
     componentDidMount() {
         const { actions } = this.props;
+        const tracksBoard = ReactDOM.findDOMNode(this.refs.tracksBoard);
+        tracksBoard.addEventListener('scroll', this.onScroll, false);
         actions.fetchAllTracks();
+    }
+
+    componentWillUnmount() {
+        const tracksBoard = ReactDOM.findDOMNode(this.refs.tracksBoard);
+        tracksBoard.removeEventListener('scroll', this.onScroll, false);
+    }
+
+    onScroll() {
+        const tracksBoard = ReactDOM.findDOMNode(this.refs.tracksBoard);
+        if (tracksBoard.scrollTop >= (tracksBoard.scrollHeight - tracksBoard.offsetHeight - 200)) {
+            console.log('scrollEnd');
+        }
     }
 
     render() {
         const { actions, player, user, tracks, activeTrack } = this.props;
         return (
-            <div>
+            <div ref="tracksBoard" className="tracks-board">
                 <div>
-                    {/*
-                        user ?
-                            <div>{user.username}</div> :
-                            <button onClick={actions.auth} type="button">Login</button>
-                    */}
-                </div>
-                <br/>
-                <div className="tracks-board">
                     {
                     tracks.map((track, key) => {
                         return (
@@ -46,10 +53,6 @@ class Stream extends Component {
                                         <div className="author">{track.user.username}</div>
                                     </div>
                                 </div>
-                                {/*<button type="button" onClick={()=> {
-                                    actions.playTrack(track);
-                                    actions.handlePlay();
-                                }}>Play</button>*/}
                             </div>
                         );
                     })

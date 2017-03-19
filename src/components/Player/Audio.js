@@ -10,7 +10,7 @@ export default class Audio extends Component {
         return `${(currentTime / duration) * 100}%`
     }
 
-    handleTimeUpdate() {console.log('timeupdate');
+    handleTimeUpdate() {
         const audioElement = ReactDOM.findDOMNode(this.refs.audio);
         const {actions, player} = this.props;
         var currentTime = audioElement.currentTime;
@@ -29,12 +29,12 @@ export default class Audio extends Component {
         this.componentWillReceiveProps(this.props);
     }
 
-    componentWillReceiveProps(props) {console.log('componentWillReceiveProps');
+    componentWillReceiveProps(props) {
         const {src, player} = props;
         const audioElement = ReactDOM.findDOMNode(this.refs.audio);
         console.log(audioElement.paused, player.isPaused);
         if (src != audioElement.src) audioElement.src = src;
-        if (player.isPaused !== audioElement.paused) {console.log('test', player.isPaused);
+        if (player.isPaused !== audioElement.paused) {
             player.isPaused ? audioElement.pause() : audioElement.play();
         }
         if (player.volume != audioElement.volume) audioElement.volume = player.volume;
