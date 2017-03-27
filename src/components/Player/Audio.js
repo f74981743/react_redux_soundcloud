@@ -16,13 +16,14 @@ export default class Audio extends Component {
         var currentTime = audioElement.currentTime;
         var duration = audioElement.duration;
         if (!player.isDragging) {
-            actions.setCurrentTime(currentTime);
-            actions.setDuration(duration);
-            actions.setProgressPercent(this.handleProgressPercent(currentTime, duration));
+            console.log(currentTime, duration);
+            if (!isNaN(currentTime)) actions.setCurrentTime(currentTime);
+            if (!isNaN(duration)) actions.setDuration(duration);
+            if (!isNaN(currentTime) && !isNaN(duration)) actions.setProgressPercent(this.handleProgressPercent(currentTime, duration));
         }
     }
 
-    componentDidMount() {console.log('componentDidMount');
+    componentDidMount() {
         const audioElement = ReactDOM.findDOMNode(this.refs.audio);
         audioElement.addEventListener('timeupdate', e => (this.handleTimeUpdate && this.handleTimeUpdate()))
         //audioElement.addEventListener('timeupdate', this.handleTimeUpdate);
