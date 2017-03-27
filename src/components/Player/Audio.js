@@ -16,7 +16,6 @@ export default class Audio extends Component {
         var currentTime = audioElement.currentTime;
         var duration = audioElement.duration;
         if (!player.isDragging) {
-            console.log(currentTime, duration);
             if (!isNaN(currentTime)) actions.setCurrentTime(currentTime);
             if (!isNaN(duration)) actions.setDuration(duration);
             if (!isNaN(currentTime) && !isNaN(duration)) actions.setProgressPercent(this.handleProgressPercent(currentTime, duration));
