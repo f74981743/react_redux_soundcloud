@@ -5,6 +5,8 @@ import { bindActionCreators } from 'redux';
 import * as Actions from '../../actions';
 import Player from '../Player';
 import { CLIENT_ID } from '../../constants/authConstant';
+import { getImageUrl } from '../../utils/utils';
+import { IMAGE_SIZES } from '../../constants/songConstant';
 
 class Stream extends Component {
 
@@ -35,17 +37,19 @@ class Stream extends Component {
 
     render() {
         const { actions, player, user, tracks, activeTrack } = this.props;
+        
         return (
             <div ref="tracksBoard" className="tracks-board">
                 <div>
                     {
                     tracks.map((track, key) => {
+                        const image = getImageUrl(track.artwork_url, IMAGE_SIZES.LARGE);
                         return (
                             <div className="track" onDoubleClick={()=> {
                                 actions.playTrack(track);
                                 actions.handlePlay();
                             }} key={key}>
-                                <div className="track-img" style={{backgroundImage: 'url(' + track.artwork_url + ')'}}>
+                                <div className="track-img" style={{backgroundImage: `url(${image})`}}>
                                 </div>
                                 <div className="track-name">
                                     <img src={track.user.avatar_url} />

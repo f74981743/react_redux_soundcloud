@@ -86,7 +86,7 @@ function fetchMe(session) {
 export function fetchAllTracks() {
     return function (dispatch, getState) {
         const { track } = getState();
-        var url = `//api.soundcloud.com/tracks?linked_partitioning=1&client_id=${CLIENT_ID}`;
+        var url = `//api.soundcloud.com/tracks?linked_partitioning=1&client_id=${CLIENT_ID}&offset=0&limit=50&tags=house`;
         if (track.nextHref !== null) url = track.nextHref;
         
         if (track.isFetching === false) {
