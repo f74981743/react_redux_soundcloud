@@ -22,17 +22,33 @@ export default class Audio extends Component {
         }
     }
 
+    addKeyDownEvent() {
+        const {actions, player} = this.props;
+        const audioElement = ReactDOM.findDOMNode(this.refs.audio);
+
+        document.addEventListener('keydown', function(event) {
+            if (event.keyCode === 32 && event.target === document.body) { // space bar
+                if (audioElement.paused === true) {
+                    actions.handlePlay();
+                } else {
+                    actions.handlePause();
+                }
+                event.preventDefault();   
+            }
+        });
+    }
+
     componentDidMount() {
         const audioElement = ReactDOM.findDOMNode(this.refs.audio);
         audioElement.addEventListener('timeupdate', e => (this.handleTimeUpdate && this.handleTimeUpdate()))
-        //audioElement.addEventListener('timeupdate', this.handleTimeUpdate);
+        this.addKeyDownEvent();
         this.componentWillReceiveProps(this.props);
     }
 
     componentWillReceiveProps(props) {
         const {src, player} = props;
         const audioElement = ReactDOM.findDOMNode(this.refs.audio);
-        console.log(audioElement.paused, player.isPaused);
+
         if (src != audioElement.src) audioElement.src = src;
         if (player.isPaused !== audioElement.paused) {
             player.isPaused ? audioElement.pause() : audioElement.play();
