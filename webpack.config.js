@@ -21,6 +21,8 @@ module.exports = {
       loader: 'style!css!sass'
     },{
       test: /\.(mp3|ogg)$/i, loader: "file?name=[path][name].[ext]"
+    }, {
+      test: /\.svg/, loader: 'svg-url-loader'
     }]
   },
   resolve: {

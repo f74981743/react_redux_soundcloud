@@ -7,6 +7,7 @@ import Player from '../Player';
 import { CLIENT_ID } from '../../constants/authConstant';
 import { getImageUrl } from '../../utils/utils';
 import { IMAGE_SIZES } from '../../constants/songConstant';
+import classNames from 'classnames';
 
 class Stream extends Component {
 
@@ -36,8 +37,12 @@ class Stream extends Component {
     }
 
     render() {
-        const { actions, player, user, tracks, activeTrack } = this.props;
-        
+        const { actions, player, user, tracks, activeTrack, isFetching } = this.props;
+        var loadingCls = classNames({
+           'loading': true,
+           hide: isFetching === false
+        });
+
         return (
             <div ref="tracksBoard" className="tracks-board">
                 <div>
@@ -62,6 +67,7 @@ class Stream extends Component {
                         );
                     })
                     }
+                    <div className={loadingCls}></div>
                 </div>
                 {
                     activeTrack ?
@@ -75,13 +81,14 @@ class Stream extends Component {
 
 function mapStateToProps(state) {
     const { user } = state.auth;
-    const { tracks, activeTrack } = state.track;
+    const { tracks, activeTrack, isFetching } = state.track;
     return {
         player: state.player,
         playlist: state.playlist,
         user,
         tracks,
-        activeTrack
+        activeTrack,
+        isFetching
     }
 }
 
