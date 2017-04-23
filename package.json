@@ -47,7 +47,8 @@
     "style-loader": "^0.13.1",
     "whatwg-fetch": "^2.0.3",
     "express": "4.15.2",
-    "classnames": "*"
+    "classnames": "*",
+    "svg-url-loader": "*"
   }, 
   "engines": {
     "node": "6.10.2"
