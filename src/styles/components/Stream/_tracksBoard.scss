@@ -4,15 +4,21 @@
     overflow: auto;
     .track {
         width: 215px;
-        height: 130px;
+        height: 150px;
         margin: 10px;
         margin-left: 5%;
         float: left;
         background: white;
         border: 1px solid #d4d3d4;
         padding: 5px;
+        box-sizing: border-box;
         &:hover {
-            border-color: lightblue;
+            border-color: #add8e6;
+            border-width: 2px;
+            cursor: pointer;
+            .track-img {
+                filter: blur(5px);
+            }
         }
         .track-img {
             width: 100%;
