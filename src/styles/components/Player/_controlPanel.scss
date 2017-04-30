@@ -18,13 +18,34 @@
     transition: color .25s ease, background-color .25s ease, opacity .5s ease;
     vertical-align: middle;
 
-    svg {
+    .btn {
         width: 18px;
         height: 18px;
+        display: inline-block;
         vertical-align: middle;
+        background-repeat: no-repeat;
+        background-size: contain;
+        margin-right: 15px;
+        cursor: pointer;
         path {
             fill: black;
         }
+        &.hide {
+            display: none;
+        }
+    }
+
+    .play-btn {
+        background-image: url('../images/play-button.svg');
+    }
+    .pause-btn {
+        background-image: url('../images/pause-button.svg');
+    }
+    .vol-btn {
+        background-image: url('../images/volume-up.svg');
+    }
+    .muted-btn {
+        background-image: url('../images/volume-off.svg');
     }
 }
 
@@ -39,16 +60,6 @@
         overflow: hidden;
         text-overflow: ellipsis;
     }
-}
-
-.btn {
-    color: #fff;
-    margin: 0 8px;
-    font-size: 18px;
-    -webkit-transition:0.3s all;
-	transition:0.3s all;	
-	-moz-transition:0.3s all;		
-	cursor: pointer;
 }
 
 .hide {
