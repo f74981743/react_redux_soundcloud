@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import VolumeBar from './VolumeBar';
-import className from 'classname';
+import classNames from 'classnames';
 
 export default class ControlPanel extends Component {
     constructor(props, context) {
@@ -35,22 +35,22 @@ export default class ControlPanel extends Component {
     render() {
         const {player} = this.props;
 
-        var playBtnCls = className({
+        const playBtnCls = classNames({
             'play-btn': true,
             'btn': true,
             'hide': (player.isPaused === true) ? false : true
         });
-        var pauseBtnCls = className({
+        const pauseBtnCls = classNames({
             'pause-btn': true,
             'btn': true,
             'hide': (player.isPaused === true) ? true : false
         });
-        var volBtnCls = className({
+        const volBtnCls = classNames({
             'vol-btn': true,
             'btn': true,
             'hide': (player.isMuted === true) ? true : false 
         });
-        var mutedBtnCls = className({
+        const mutedBtnCls = classNames({
             'muted-btn': true,
             'btn': true,
             'hide': (player.isMuted === true) ? false : true

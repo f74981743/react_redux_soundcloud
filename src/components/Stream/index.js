@@ -28,6 +28,14 @@ class Stream extends Component {
         tracksBoard.removeEventListener('scroll', this.onScroll, false);
     }
 
+    handlePlay() {
+        
+    }
+
+    handlePause() {
+
+    }
+
     onScroll() {
         const { actions } = this.props;
         const tracksBoard = ReactDOM.findDOMNode(this.refs.tracksBoard);
@@ -38,24 +46,39 @@ class Stream extends Component {
 
     render() {
         const { actions, player, user, tracks, activeTrack, isFetching } = this.props;
-        var loadingCls = classNames({
+        const loadingCls = classNames({
            'loading': true,
            hide: isFetching === false
         });
+
+        
 
         return (
             <div ref="tracksBoard" className="tracks-board">
                 <div>
                     {
                     tracks.map((track, key) => {
+                        const playBtnCls = classNames({
+                            'play-btn': true,
+                            'btn': true,
+                            'hide': (player.isPaused === true || track !== activeTrack) ? false : true
+                        });
+
+                        const pauseBtnCls = classNames({
+                            'pause-btn': true,
+                            'btn': true,
+                            'hide': (player.isPaused !== true && track === activeTrack) ? false : true
+                        });
                         const image = getImageUrl(track.artwork_url, IMAGE_SIZES.LARGE);
                         return (
-                            <div className="track" onDoubleClick={()=> {
+                            <div className="track" onDoubleClick={() => {
                                 actions.playTrack(track);
                                 actions.handlePlay();
                             }} key={key}>
                                 <div className="track-img" style={{backgroundImage: `url(${image})`}}>
                                 </div>
+                                <div className={playBtnCls} onClick={this.handlePlay.bind(this)}></div>
+                                <div className={pauseBtnCls} onClick={this.handlePause.bind(this)}></div>
                                 <div className="track-name">
                                     <img src={track.user.avatar_url} />
                                     <div className="track-detail">
