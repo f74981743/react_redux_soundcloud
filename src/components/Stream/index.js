@@ -28,12 +28,18 @@ class Stream extends Component {
         tracksBoard.removeEventListener('scroll', this.onScroll, false);
     }
 
-    handlePlay() {
+    handlePlay(track) {
+        const { activeTrack, actions } = this.props;
         
+        if (track !== activeTrack) {
+            actions.playTrack(track);
+        }
+        actions.handlePlay();
     }
 
     handlePause() {
-
+        const {actions} = this.props;
+        actions.handlePause();
     }
 
     onScroll() {
@@ -77,7 +83,9 @@ class Stream extends Component {
                             }} key={key}>
                                 <div className="track-img" style={{backgroundImage: `url(${image})`}}>
                                 </div>
-                                <div className={playBtnCls} onClick={this.handlePlay.bind(this)}></div>
+                                <div className={playBtnCls} onClick={() => {
+                                    this.handlePlay(track);
+                                }}></div>
                                 <div className={pauseBtnCls} onClick={this.handlePause.bind(this)}></div>
                                 <div className="track-name">
                                     <img src={track.user.avatar_url} />
