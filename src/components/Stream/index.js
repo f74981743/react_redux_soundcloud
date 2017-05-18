@@ -57,46 +57,58 @@ class Stream extends Component {
            hide: isFetching === false
         });
 
-        
+        var fakeDivs = [];
+        for (var i = 0; i < 10; i++) {
+            fakeDivs.push(<div className="fake-div"></div>);
+        }
+
+        /*var addFakeDiv = () => {
+            for (var i = 0; i < 10; i++) {
+                return <div className="fake-div"></div>
+            }
+        };*/
 
         return (
-            <div ref="tracksBoard" className="tracks-board">
-                <div>
+            <div className="tracks-board">
+                <div ref="tracksBoard">
                     {
-                    tracks.map((track, key) => {
-                        const playBtnCls = classNames({
-                            'play-btn': true,
-                            'btn': true,
-                            'hide': (player.isPaused === true || track !== activeTrack) ? false : true
-                        });
+                        tracks.map((track, key) => {
+                            const playBtnCls = classNames({
+                                'play-btn': true,
+                                'btn': true,
+                                'hide': (player.isPaused === true || track !== activeTrack) ? false : true
+                            });
 
-                        const pauseBtnCls = classNames({
-                            'pause-btn': true,
-                            'btn': true,
-                            'hide': (player.isPaused !== true && track === activeTrack) ? false : true
-                        });
-                        const image = getImageUrl(track.artwork_url, IMAGE_SIZES.LARGE);
-                        return (
-                            <div className="track" onDoubleClick={() => {
-                                actions.playTrack(track);
-                                actions.handlePlay();
-                            }} key={key}>
-                                <div className="track-img" style={{backgroundImage: `url(${image})`}}>
-                                </div>
-                                <div className={playBtnCls} onClick={() => {
-                                    this.handlePlay(track);
-                                }}></div>
-                                <div className={pauseBtnCls} onClick={this.handlePause.bind(this)}></div>
-                                <div className="track-name">
-                                    <img src={track.user.avatar_url} />
-                                    <div className="track-detail">
-                                        <div className="title">{track.title}</div>
-                                        <div className="author">{track.user.username}</div>
+                            const pauseBtnCls = classNames({
+                                'pause-btn': true,
+                                'btn': true,
+                                'hide': (player.isPaused !== true && track === activeTrack) ? false : true
+                            });
+                            const image = getImageUrl(track.artwork_url, IMAGE_SIZES.LARGE);
+                            return (
+                                <div className="track" onDoubleClick={() => {
+                                    actions.playTrack(track);
+                                    actions.handlePlay();
+                                }} key={key}>
+                                    <div className="track-img" style={{backgroundImage: `url(${image})`}}>
+                                    </div>
+                                    <div className={playBtnCls} onClick={() => {
+                                        this.handlePlay(track);
+                                    }}></div>
+                                    <div className={pauseBtnCls} onClick={this.handlePause.bind(this)}></div>
+                                    <div className="track-name">
+                                        <img src={track.user.avatar_url} />
+                                        <div className="track-detail">
+                                            <div className="title">{track.title}</div>
+                                            <div className="author">{track.user.username}</div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        );
-                    })
+                            );
+                        })
+                    }
+                    {
+                        fakeDivs
                     }
                     <div className={loadingCls}></div>
                 </div>
