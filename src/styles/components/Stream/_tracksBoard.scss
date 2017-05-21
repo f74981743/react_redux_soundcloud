@@ -1,18 +1,29 @@
+%track-default {
+    width: 215px;
+    height: 150px;
+    margin: 10px;
+    border: 1px solid #d4d3d4;
+    padding: 5px;
+    position: relative;
+    box-sizing: border-box;
+}
+
 .tracks-board {
+    height: 100%;
+}
+
+.tracks-board > div {
     padding: 0 25px 0 25px;
     height: 100%;
     overflow: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: flex-start;
     .track {
-        width: 215px;
-        height: 150px;
-        margin: 10px;
-        margin-left: 5%;
-        float: left;
+        @extend %track-default;
         background: white;
-        border: 1px solid #d4d3d4;
-        padding: 5px;
-        box-sizing: border-box;
-        position: relative;
         &:hover {
             border-color: #add8e6;
             border-width: 2px;
@@ -76,6 +87,11 @@
                 }
             }
         }
+    }
+    .fake-div {
+        @extend %track-default;
+        height: 0;
+        border: 0;
     }
 }
 
