@@ -1,25 +1,56 @@
 import React, { Component, PropTypes } from 'react';
+import ReactDOM from 'react-dom';
 
 export default class VolumeBar extends Component {
     constructor(props, context) {
         super(props, context);
+        this.state = {
+            dragging: false
+        }
     }
 
-    mouseDown() {
+    mouseDown(e) {
+        e.preventDefault();
         const {actions} = this.props;
         actions.setDragging(true);
-        this.volBar.addEventListener('mousemove', this.mouseMove.bind(this))
+        this.setState({dragging: true});
+        document.addEventListener('mousemove', this.mouseMove.bind(this))
+        document.addEventListener('mouseup', this.mouseUp.bind(this));
     }
 
-    mouseUp() {
-        const {actions} = this.props;
-        actions.setDragging(false);
-        this.volBar.removeEventListener('mousemove', this.mouseMove.bind(this))
+    mouseUp(e) {
+        e.preventDefault();
+        const volumeBody = ReactDOM.findDOMNode(this.refs.volumeBody);
+        const volumeDragger = ReactDOM.findDOMNode(this.refs.volumeDragger);
+        const {actions, handleSlideVolume} = this.props;
+        
+        document.removeEventListener('mousemove', this.mouseMove.bind(this));
+
+        if (this.state.dragging) {
+            var barRect = this.volBar.getClientRects()[0];
+            var width = (e.clientX - barRect.left) / (barRect.right - barRect.left);
+            if (width > 1) {
+                width = 1;
+            }
+            if (width < 0) {
+                width = 0;
+            }
+
+            volumeBody.style.width = `${width * 100}%`;
+            volumeDragger.style.left = `${width * 100}%`;
+            handleSlideVolume(width);
+            actions.setDragging(false);
+            this.setState({dragging: false});
+        }
+        document.removeEventListener('mouseup', this.mouseUp.bind(this));
     }
 
     mouseMove(e) {
+        e.preventDefault();
+        const volumeBody = ReactDOM.findDOMNode(this.refs.volumeBody);
+        const volumeDragger = ReactDOM.findDOMNode(this.refs.volumeDragger);
         const {actions, dragging, handleSlideVolume} = this.props;
-        if(dragging){
+        if(this.state.dragging){
 			var barRect = this.volBar.getClientRects()[0];
             var width = (e.clientX - barRect.left) / (barRect.right - barRect.left);
             if (width > 1) {
@@ -28,13 +59,16 @@ export default class VolumeBar extends Component {
             if (width < 0) {
                 width = 0;
             }
-            handleSlideVolume(width);
+
+            volumeBody.style.width = `${width * 100}%`;
+            volumeDragger.style.left = `${width * 100}%`;
 		}
-		e.preventDefault()
     }
 
     mouseClick(e) {
         const {actions, handleSlideVolume} = this.props;
+        const volumeBody = ReactDOM.findDOMNode(this.refs.volumeBody);
+        const volumeDragger = ReactDOM.findDOMNode(this.refs.volumeDragger);
         var barRect = this.volBar.getClientRects()[0];
         var width = (e.clientX - barRect.left) / (barRect.right - barRect.left);
         if (width > 1) {
@@ -43,6 +77,9 @@ export default class VolumeBar extends Component {
         if (width < 0) {
             width = 0;
         }
+
+        volumeBody.style.width = `${width * 100}%`;
+        volumeDragger.style.left = `${width * 100}%`;
         handleSlideVolume(width);
     }
 
@@ -54,18 +91,15 @@ export default class VolumeBar extends Component {
                     ref={(c) => this.volBar = c}
                     onClick={this.mouseClick.bind(this)}
                     onMouseDown={this.mouseDown.bind(this)}
-                    onMouseUp={this.mouseUp.bind(this)}
                 >
                     <div className='vol-current'
-                        style = {{
-                            width: `${player.volume * 100}%`
-                        }}
+                        ref="volumeBody"
+                        style={{width: player.volume * 100 + '%'}}
                     >
                     </div>
                     <span className='circle'
-                        style = {{
-                            left: `${player.volume * 100}%`
-                        }}
+                        ref="volumeDragger"
+                        style={{left: player.volume * 100 + '%'}}
                     ></span>
                 </div>
             </div>

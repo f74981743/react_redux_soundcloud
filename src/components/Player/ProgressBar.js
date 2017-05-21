@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import ReactDOM from 'react-dom';
 
 export default class ProgressBar extends Component {
     constructor(props, context) {
@@ -17,21 +18,46 @@ export default class ProgressBar extends Component {
 		return `${min}:${sec}`
 	}
 
-    mouseDown() {
+    mouseDown(e) {
+        e.preventDefault();
         const {actions} = this.props;
         actions.setDragging(true);
-        this.setState({dragging: true})
-        this.pgBar.addEventListener('mousemove', this.mouseMove.bind(this))
+        this.setState({dragging: true});
+        document.addEventListener('mousemove', this.mouseMove.bind(this));
+        document.addEventListener('mouseup', this.mouseUp.bind(this));
     }
 
-    mouseUp() {
-        const {actions} = this.props;
-        actions.setDragging(false);
-        this.setState({dragging: false})
-        this.pgBar.removeEventListener('mousemove', this.mouseMove.bind(this))
+    mouseUp(e) {
+        e.preventDefault();
+        const progressBody = ReactDOM.findDOMNode(this.refs.progressBody);
+        const progressDragger = ReactDOM.findDOMNode(this.refs.progressDragger);
+        const {actions, dragging, handleSlideProgress} = this.props;
+        document.removeEventListener('mousemove', this.mouseMove.bind(this));
+        
+        if(this.state.dragging){
+			var barRect = this.pgBar.getClientRects()[0];
+            var width = (e.clientX - barRect.left) / (barRect.right - barRect.left);
+            if (width > 1) {
+                width = 1;
+            }
+            if (width < 0) {
+                width = 0;
+            }
+
+            progressBody.style.width = `${width * 100}%`;
+            progressDragger.style.left = `${width * 100}%`;
+            handleSlideProgress(width * 100);
+            actions.setDragging(false);
+            this.setState({dragging: false});
+		}
+
+        document.removeEventListener('mouseup', this.mouseUp.bind(this));
     }
 
     mouseMove(e) {
+        e.preventDefault();
+        const progressBody = ReactDOM.findDOMNode(this.refs.progressBody);
+        const progressDragger = ReactDOM.findDOMNode(this.refs.progressDragger);
         const {actions, dragging, handleSlideProgress} = this.props;
         if(this.state.dragging){
 			var barRect = this.pgBar.getClientRects()[0];
@@ -42,15 +68,17 @@ export default class ProgressBar extends Component {
             if (width < 0) {
                 width = 0;
             }
-            //actions.setProgressPercent(`${width * 100}%`);
-            this.setState({width: `${width * 100}%`})
-            handleSlideProgress(width * 100);
+
+            progressBody.style.width = `${width * 100}%`;
+            progressDragger.style.left = `${width * 100}%`;
 		}
-		e.preventDefault()
     }
 
     mouseClick(e) {
+        const progressBody = ReactDOM.findDOMNode(this.refs.progressBody);
+        const progressDragger = ReactDOM.findDOMNode(this.refs.progressDragger);
         const {actions, handleSlideProgress} = this.props;
+
         var barRect = this.pgBar.getClientRects()[0];
         var width = (e.clientX - barRect.left) / (barRect.right - barRect.left);
         if (width > 1) {
@@ -59,13 +87,21 @@ export default class ProgressBar extends Component {
         if (width < 0) {
             width = 0;
         }
-        //actions.setProgressPercent(`${width * 100}%`);
-        this.setState({width: `${width * 100}%`})
+
+        progressBody.style.width = `${width * 100}%`;
+        progressDragger.style.left = `${width * 100}%`;
         handleSlideProgress(width * 100);
     }
 
     componentWillReceiveProps(props){
-		this.setState({width: props.player.progressPercent})
+        const progressBody = ReactDOM.findDOMNode(this.refs.progressBody);
+        const progressDragger = ReactDOM.findDOMNode(this.refs.progressDragger);
+
+        if(!this.state.dragging && !props.player.isPaused){
+            progressBody.style.width = props.player.progressPercent;
+            progressDragger.style.left = props.player.progressPercent;
+        }
+        
 	}
 
     render() {
@@ -78,19 +114,12 @@ export default class ProgressBar extends Component {
                         ref={(c) => this.pgBar = c}
                         onClick={this.mouseClick.bind(this)}
                         onMouseDown={this.mouseDown.bind(this)}
-                        onMouseUp={this.mouseUp.bind(this)}
                     >
                         <div className='played'
-                            style={{
-                                //width: player.progressPercent
-                                width: this.state.width
-                            }}
+                            ref="progressBody"
                         ></div>
                         <div className='circle'
-                            style={{
-                                //left: player.progressPercent
-                                left: this.state.width
-                            }}
+                            ref="progressDragger"
                         >
                         </div>
                     </div>
