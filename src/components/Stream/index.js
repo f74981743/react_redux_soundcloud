@@ -70,7 +70,7 @@ class Stream extends Component {
 
         return (
             <div className="tracks-board">
-                <div ref="tracksBoard">
+                <div className="container" ref="tracksBoard">
                     {
                         tracks.map((track, key) => {
                             const playBtnCls = classNames({
