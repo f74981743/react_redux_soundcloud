@@ -1,0 +1,19 @@
+.playlist {
+    width: 200px;
+    height: 400px;
+    background-color: rosybrown;
+    position: absolute;
+    display: block;
+    z-index: 3;
+    top: -400px;
+    left: 0;
+    overflow: scroll;
+    &.hide {
+        display: none;
+    }
+
+    .song {
+        font-size: 12px;
+        text-align: left;
+    }
+}

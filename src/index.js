@@ -25,7 +25,7 @@ SC.initialize({ client_id: CLIENT_ID, redirect_uri: REDIRECT_URI });
 const logger = createLogger();
 const router = routerMiddleware(browserHistory);
 
-const createStoreWithMiddleware = applyMiddleware(thunk, router)(createStore);
+const createStoreWithMiddleware = applyMiddleware(thunk, router, logger)(createStore);
 const store = createStoreWithMiddleware(reducers);
 const history = syncHistoryWithStore(browserHistory, store);
 

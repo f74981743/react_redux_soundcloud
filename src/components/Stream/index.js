@@ -62,12 +62,6 @@ class Stream extends Component {
             fakeDivs.push(<div className="fake-div"></div>);
         }
 
-        /*var addFakeDiv = () => {
-            for (var i = 0; i < 10; i++) {
-                return <div className="fake-div"></div>
-            }
-        };*/
-
         return (
             <div className="tracks-board">
                 <div className="container" ref="tracksBoard">

@@ -1,29 +1,34 @@
 import React, { Component, PropTypes } from 'react';
 import VolumeBar from './VolumeBar';
 import classNames from 'classnames';
+import PlayList from '../PlayList';
 
 export default class ControlPanel extends Component {
     constructor(props, context) {
         super(props, context);
+
+        this.state = {
+            isHidePlayList: true
+        };
     }
 
     handlePlay() {
-        const {actions} = this.props;
+        const { actions } = this.props;
         actions.handlePlay();
     }
 
     handlePause() {
-        const {actions} = this.props;
+        const { actions } = this.props;
         actions.handlePause();
     }
 
     handleSlideVolume(volume) {
-        const {actions} = this.props;
+        const { actions } = this.props;
 		actions.setVolume(volume);
     }
 
     handleMute() {
-        const {actions} = this.props;
+        const { actions } = this.props;
         actions.setMuted(true);
     }
 
@@ -32,8 +37,27 @@ export default class ControlPanel extends Component {
         actions.setMuted(false);
     }
 
+    showPlaylistPanel() {
+        const { actions } = this.props;
+        if (this.state.isHidePlayList) {
+            actions.fetchPlayList();
+            this.setState({
+                isHidePlayList: false
+            });
+        } else {
+            this.setState({
+                isHidePlayList: true
+            });
+        }
+    }
+
     render() {
         const {player} = this.props;
+
+        const playlistBtnCls = classNames({
+            'playlist-btn': true,
+            'btn': true
+        });
 
         const playBtnCls = classNames({
             'play-btn': true,
@@ -58,15 +82,11 @@ export default class ControlPanel extends Component {
 
         return (
             <div className='control-panel'>
-                {/*<div className='song-info'>
-                    <div className='cover-image'>
-                    </div>
-                    <div className='song-detail'>
-                    </div>
-                    <p className='song'></p>
-                    <p className='artist'></p>
-                </div>*/}
                 <div className='controller'>
+                    <PlayList hide={this.state.isHidePlayList} />
+                    <div className={playlistBtnCls} onClick={this.showPlaylistPanel.bind(this)}>
+                        
+                    </div>
                     <div className={playBtnCls} onClick={this.handlePlay.bind(this)}></div>
                     <div className={pauseBtnCls} onClick={this.handlePause.bind(this)}></div>
                     <div className={volBtnCls} onClick={this.handleMute.bind(this)}></div>

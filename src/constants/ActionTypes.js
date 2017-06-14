@@ -16,3 +16,4 @@ export const ME_SET = 'ME_SET';
 export const TRACK_PLAY = 'TRACK_PLAY';
 export const SET_ISFETCHING = 'SET_ISFETCHING';
 export const SET_NEXT_HREF = 'SET_NEXT_HREF';
+export const SET_PLAYLIST = 'SET_PLAYLIST';

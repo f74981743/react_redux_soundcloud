@@ -129,3 +129,24 @@ export function playTrack(track) {
         track
     };
 };
+
+export function fetchPlayList() {
+    return function(dispatch, getState) {
+        const { tracks, activeTrack } = getState().track;
+        var songs;
+        for (var i = 0; i < tracks.length; i++) {
+            if (tracks[i].id === activeTrack.id) {
+                songs = tracks.slice(i, tracks.length);
+            }
+        }
+
+        dispatch(setPlayList(songs));
+    }
+}
+
+function setPlayList(songs) {
+    return {
+        type: types.SET_PLAYLIST,
+        songs
+    }
+}

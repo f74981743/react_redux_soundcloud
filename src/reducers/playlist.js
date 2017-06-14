@@ -1,13 +1,19 @@
-var initialState = [
-    {
-        src: 'http://7mj4yb.com1.z0.glb.clouddn.com/miracle_girl.mp3'
-    }
-]
+import * as types from '../constants/ActionTypes';
 
+var initialState = {
+	songs: []
+};
 
 export default function playlist(state = initialState, action) {
 	switch(action.type) {
+		case types.SET_PLAYLIST:
+			return setPlayList(state, action);
 		default:
 			return state
 	}
+}
+
+function setPlayList(state, action) {
+	const { songs } = action;
+	return { ...state, songs: state.songs.concat(songs) };
 }
