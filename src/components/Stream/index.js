@@ -35,6 +35,7 @@ class Stream extends Component {
             actions.playTrack(track);
         }
         actions.handlePlay();
+        actions.fetchPlayList();
     }
 
     handlePause() {
@@ -51,7 +52,7 @@ class Stream extends Component {
     }
 
     render() {
-        const { actions, player, user, tracks, activeTrack, isFetching } = this.props;
+        const { actions, player, user, tracks, activeTrack, isFetching, playlist } = this.props;
         const loadingCls = classNames({
            'loading': true,
            hide: isFetching === false
@@ -108,7 +109,7 @@ class Stream extends Component {
                 </div>
                 {
                     activeTrack ?
-                        <Player src={`${activeTrack.stream_url}?client_id=${CLIENT_ID}`} player={player} actions={actions} /> :
+                        <Player src={`${activeTrack.stream_url}?client_id=${CLIENT_ID}`} player={player} playlist={playlist} actions={actions} activeTrack={activeTrack} /> :
                         null
                 }
             </div>

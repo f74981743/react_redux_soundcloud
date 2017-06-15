@@ -21,14 +21,11 @@ export default class Player extends Component {
     }
 
     render() {
-        const { src, player, actions } = this.props;
+        const { src, player, playlist, actions, activeTrack } = this.props;
         return (
             <div className="player">
                 <Audio
-                    src={src}
-                    player={player}
-                    actions={actions}
-                    muted={player.isMuted}
+                    {...this.props}
                 />
                 <ProgressBar
                     {...this.props}

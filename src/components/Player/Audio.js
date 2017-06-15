@@ -38,11 +38,28 @@ export default class Audio extends Component {
         });
     }
 
+    handleSongEnded() {
+        const { actions,  playlist, activeTrack } = this.props;
+        var songs = playlist.songs;
+        for (var i = 0; i < songs.length; i++) {
+            if (songs[i].id === activeTrack.id) {
+                if (songs[i + 1]) {
+                    actions.playTrack(songs[i + 1]);
+                } else {
+                    actions.playTrack(songs[0]);
+                }
+            }
+        }
+    }
+
     componentDidMount() {
+        const { actions,  playlist, activeTrack } = this.props;
         const audioElement = ReactDOM.findDOMNode(this.refs.audio);
         audioElement.addEventListener('timeupdate', e => (this.handleTimeUpdate && this.handleTimeUpdate()))
         this.addKeyDownEvent();
         this.componentWillReceiveProps(this.props);
+
+        audioElement.addEventListener('ended', e => (this.handleSongEnded && this.handleSongEnded()));
     }
 
     componentWillReceiveProps(props) {
