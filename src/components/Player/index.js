@@ -27,6 +27,13 @@ export default class Player extends Component {
                 <Audio
                     {...this.props}
                 />
+                <div className="track-info">
+                    <img src={activeTrack.artwork_url} />
+                    <div className="track-text">
+                        <div className="title">{activeTrack.title}</div>
+                        <div className="author">{activeTrack.user.username}</div>
+                    </div>
+                </div>
                 <ProgressBar
                     {...this.props}
                     handleSlideProgress = {this.handleSlideProgress.bind(this)}

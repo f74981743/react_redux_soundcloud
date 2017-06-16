@@ -4,4 +4,40 @@
     left: 0;
     width: 100%;
     background: white;
+
+    .track-info {
+        width: 150px;
+        padding: 15px 0;
+        float: left;
+        &:before, &:after {
+            clear: both;
+            line-height: 0;
+            content: '';
+            display: table;
+        }
+        > img {
+            padding: 0 5px;
+            float: left;
+            width: 36px;
+            height: 36px;
+        }
+        > .track-text {
+            width: calc(100% - 46px);
+            float: left;
+            padding: 5px 0;
+            
+            > .title {
+                height: 12px;
+                font-size: 12px;
+                line-height: 12px;
+                overflow: hidden;
+            }
+
+            > .author {
+                font-size: 10px;
+                line-height: 10px;
+                color: rgba(172,173,169,1);
+            }
+        }
+    }
 }

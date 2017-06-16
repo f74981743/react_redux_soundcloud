@@ -83,9 +83,7 @@ export default class ControlPanel extends Component {
             <div className='control-panel'>
                 <div className='controller'>
                     <PlayList hide={this.state.isHidePlayList} />
-                    <div className={playlistBtnCls} onClick={this.showPlaylistPanel.bind(this)}>
-                        
-                    </div>
+                    <div className={playlistBtnCls} onClick={this.showPlaylistPanel.bind(this)}></div>
                     <div className={playBtnCls} onClick={this.handlePlay.bind(this)}></div>
                     <div className={pauseBtnCls} onClick={this.handlePause.bind(this)}></div>
                     <div className={volBtnCls} onClick={this.handleMute.bind(this)}></div>
