@@ -1,7 +1,7 @@
 .playlist {
     width: 200px;
     height: 400px;
-    background-color: rosybrown;
+    background-color: white;
     position: absolute;
     display: block;
     z-index: 3;
@@ -12,8 +12,28 @@
         display: none;
     }
 
-    .song {
+    .song-info-playlist {
         font-size: 12px;
         text-align: left;
+        height: 55px;
+        padding: 3px;
+        border-top: 1px solid #dadada;
+        cursor: pointer;
+        img {
+            display: inline-block;
+            width: 48px;
+            height: 48px;
+        }
+        .song-title {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            vertical-align: top;
+            white-space: nowrap;
+            display: inline-block;
+            font-size: 14px;
+            height: 48px;
+            line-height: 48px;
+            width: calc(100% - 48px);
+        }
     }
 }

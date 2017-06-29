@@ -10,7 +10,7 @@ class PlayList extends Component {
     }
 
     render() {
-        const { hide, songs} = this.props;
+        const { hide, songs } = this.props;
 
         const playListCls = classNames({
             'playlist': true,
@@ -22,8 +22,9 @@ class PlayList extends Component {
                 {
                     songs.map((song) => {
                         return (
-                            <div className="song">
-                                { song.title }
+                            <div className="song-info-playlist">
+                                <img src={song.artwork_url} />
+                                <div className="song-title">{song.title}</div>
                             </div>
                         )
                     })

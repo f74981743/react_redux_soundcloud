@@ -5,6 +5,10 @@
 @import './components/Stream/tracksBoard';
 @import './components/PlayList/playlist';
 
+* {
+  box-sizing: border-box;
+}
+
 html, body, .container {
   height: 100%;
   background-color: #f4f4f4;

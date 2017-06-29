@@ -7,7 +7,7 @@
 
     .track-info {
         width: 150px;
-        padding: 15px 0;
+        padding: 5px;
         float: left;
         &:before, &:after {
             clear: both;
@@ -16,16 +16,16 @@
             display: table;
         }
         > img {
+            display: inline-block;
             padding: 0 5px;
-            float: left;
-            width: 36px;
-            height: 36px;
+            width: 48px;
+            height: 48px;
         }
         > .track-text {
-            width: calc(100% - 46px);
-            float: left;
+            width: calc(100% - 48px);
+            display: inline-block;
             padding: 5px 0;
-            
+            transform: translateY(-50%);
             > .title {
                 height: 12px;
                 font-size: 12px;
