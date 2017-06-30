@@ -20,8 +20,9 @@
     height: 60px;
 	margin: 0 2%;
 	width: calc(100% - 600px);
+	min-width: 300px;
 	position: relative;
-	float: left;
+	display: inline-block;
 }
 
 .pgbar-outer {

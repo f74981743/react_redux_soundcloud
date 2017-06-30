@@ -1,10 +1,10 @@
 .control-panel {
     position: relative;
     height: 60px;
-    width: 350px;
+    width: 300px;
     padding: 5px 2%;
     box-sizing: border-box;
-    float: left;
+    display: inline-block;
 }
 
 .controller {
