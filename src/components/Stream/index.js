@@ -85,19 +85,21 @@ class Stream extends Component {
                                     actions.playTrack(track);
                                     actions.handlePlay();
                                 }} key={key}>
-                                    <div className="track-img" style={{backgroundImage: `url(${image})`}}>
-                                    </div>
-                                    <div className={playBtnCls} onClick={() => {
-                                        this.handlePlay(track);
-                                    }}></div>
-                                    <div className={pauseBtnCls} onClick={this.handlePause.bind(this)}></div>
-                                    <div className="track-name">
+                                    <div className="track-img" style={{backgroundImage: `url(${image})`}}></div>
+                                    <div className="track-info">
                                         <img src={track.user.avatar_url} />
                                         <div className="track-detail">
                                             <div className="title">{track.title}</div>
                                             <div className="author">{track.user.username}</div>
                                         </div>
                                     </div>
+                                    <div className="track-button">
+                                        <div className={playBtnCls} onClick={() => {
+                                            this.handlePlay(track);
+                                        }}></div>
+                                        <div className={pauseBtnCls} onClick={this.handlePause.bind(this)}></div>
+                                    </div>
+                                    
                                 </div>
                             );
                         })
