@@ -36,6 +36,13 @@ export function setProgressPercent(progressPercent) {
     }
 }
 
+export function setBufferedPercent(bufferedPercent) {
+    return {
+        type: types.SET_BUFFERED_PERCENT,
+        bufferedPercent: bufferedPercent
+    }
+}
+
 export function setDragging(isDragging) {
     return {
         type: types.SET_DRAGGING,

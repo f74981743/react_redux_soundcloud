@@ -96,10 +96,12 @@ export default class ProgressBar extends Component {
     componentWillReceiveProps(props){
         const progressBody = ReactDOM.findDOMNode(this.refs.progressBody);
         const progressDragger = ReactDOM.findDOMNode(this.refs.progressDragger);
+        const buffered = ReactDOM.findDOMNode(this.refs.buffered);
 
         if(!this.state.dragging && !props.player.isPaused){
             progressBody.style.width = props.player.progressPercent;
             progressDragger.style.left = props.player.progressPercent;
+            buffered.style.width = props.player.bufferedPercent;
         }
         
 	}
@@ -120,6 +122,10 @@ export default class ProgressBar extends Component {
                         ></div>
                         <div className='circle'
                             ref="progressDragger"
+                        >
+                        </div>
+                        <div className="buffered"
+                            ref="buffered"
                         >
                         </div>
                     </div>

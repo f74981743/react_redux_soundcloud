@@ -15,6 +15,9 @@ export default class Audio extends Component {
         const {actions, player} = this.props;
         var currentTime = audioElement.currentTime;
         var duration = audioElement.duration;
+        if (audioElement.buffered.length > 0) {
+            actions.setBufferedPercent(100 * audioElement.buffered.end(0) / audioElement.duration + '%');
+        }
         if (!player.isDragging) {
             if (!isNaN(currentTime)) actions.setCurrentTime(currentTime);
             if (!isNaN(duration)) actions.setDuration(duration);

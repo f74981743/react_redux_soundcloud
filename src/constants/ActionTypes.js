@@ -17,3 +17,4 @@ export const TRACK_PLAY = 'TRACK_PLAY';
 export const SET_ISFETCHING = 'SET_ISFETCHING';
 export const SET_NEXT_HREF = 'SET_NEXT_HREF';
 export const SET_PLAYLIST = 'SET_PLAYLIST';
+export const SET_BUFFERED_PERCENT = 'SET_BUFFERED_PERCENT';

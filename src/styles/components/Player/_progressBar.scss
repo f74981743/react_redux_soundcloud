@@ -45,7 +45,7 @@
 	right: 0;
 }
 
-.played {
+.played, .buffered {
 	position: absolute;
     height: 5px;
     width: 1px;
@@ -53,6 +53,10 @@
     -webkit-transition: 0.2s all;
     transition: 0.2s all;
 	opacity: 0.7;
+}
+
+.buffered {
+    background-color: rgba(166, 210, 165, .3);
 }
 
 .circle {

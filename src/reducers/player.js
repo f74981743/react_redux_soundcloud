@@ -4,6 +4,7 @@ var initialState = {
     duration: 1,
     currentTime: 0,
     progressPercent: '0%',
+    bufferedPercent: '0%',
     isMuted: false,
     isPaused: true,
     volume: 0.5,
@@ -44,6 +45,10 @@ export default function player(state = initialState, action) {
         case types.SET_MUTED:
             return Object.assign({}, state, {
                 isMuted: action.isMuted
+            })
+        case types.SET_BUFFERED_PERCENT:
+            return Object.assign({}, state, {
+                bufferedPercent: action.bufferedPercent
             })
 		default:
 			return state
