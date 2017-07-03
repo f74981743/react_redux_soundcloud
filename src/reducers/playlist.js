@@ -15,5 +15,7 @@ export default function playlist(state = initialState, action) {
 
 function setPlayList(state, action) {
 	const { songs } = action;
-	return { ...state, songs: state.songs.concat(songs) };
+	return Object.assign({}, state, {
+		songs: action.songs
+	})
 }
