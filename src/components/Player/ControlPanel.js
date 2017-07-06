@@ -39,12 +39,19 @@ export default class ControlPanel extends Component {
 
     showPlaylistPanel() {
         const { actions } = this.props;
-        if (this.state.isHidePlayList) {
-            this.setState({
+        const self = this;
+        if (self.state.isHidePlayList) {
+            self.setState({
                 isHidePlayList: false
             });
+            document.body.addEventListener('click', function() {
+                self.setState({
+                    isHidePlayList: true
+                });
+                document.body.removeEventListener('click', function() {});
+            });
         } else {
-            this.setState({
+            self.setState({
                 isHidePlayList: true
             });
         }

@@ -10,7 +10,7 @@ class PlayList extends Component {
     }
 
     render() {
-        const { hide, songs } = this.props;
+        const { hide, songs, actions } = this.props;
 
         const playListCls = classNames({
             'playlist': true,
@@ -22,7 +22,10 @@ class PlayList extends Component {
                 {
                     songs.map((song) => {
                         return (
-                            <div className="song-info-playlist">
+                            <div className="song-info-playlist" onClick={() => {
+                                actions.playTrack(song);
+                                actions.handlePlay();
+                            }}>
                                 <img src={song.artwork_url} />
                                 <div className="song-title">{song.title}</div>
                             </div>
