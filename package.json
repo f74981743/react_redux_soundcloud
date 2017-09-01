@@ -6,8 +6,9 @@
   "repository": "",
   "scripts": {
     "dev": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
+    "clean": "rimraf public",
     "start": "node server.js",
-    "postinstall": "webpack -p",
+    "build": "npm run clean && webpack -p",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
     "test:watch": "npm run test -- --watch"
   },
