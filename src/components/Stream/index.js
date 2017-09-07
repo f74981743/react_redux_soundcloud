@@ -9,7 +9,7 @@ import { getImageUrl } from '../../utils/utils';
 import { IMAGE_SIZES } from '../../constants/songConstant';
 import classNames from 'classnames';
 
-class Stream extends Component {
+export class Stream extends Component {
 
     constructor(props, context) {
         super(props, context);
