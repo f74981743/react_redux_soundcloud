@@ -67,7 +67,6 @@ export function setMuted(isMuted) {
 export function auth() {
     return function (dispatch) {
         SC.connect().then((session) => {
-            //dispatch(fetchMe(session));
             dispatch(fetchStream(session));
         });
     };
@@ -90,10 +89,10 @@ function fetchMe(session) {
     }
 };
 
-export function fetchAllTracks() {
+export function fetchAllTracks(tags, isResetTrack) {
     return function (dispatch, getState) {
         const { track } = getState();
-        var url = `//api.soundcloud.com/tracks?linked_partitioning=1&client_id=${CLIENT_ID}&offset=0&limit=50&tags=house`;
+        var url = `//api.soundcloud.com/tracks?linked_partitioning=1&client_id=${CLIENT_ID}&offset=0&limit=50&tags=${tags}`;
         if (track.nextHref !== null) url = track.nextHref;
         
         if (track.isFetching === false) {
@@ -101,11 +100,18 @@ export function fetchAllTracks() {
             fetch(url)
                 .then((response) => response.json())
                 .then((data) => {
+                    if (isResetTrack) dispatch(resetTracks());
                     dispatch(setTracks(data.collection));
                     dispatch(setNextHref(data.next_href));
                     dispatch(setIsFetching(false));
                 });
         }
+    }
+}
+
+export function resetTracks() {
+    return {
+        type: types.RESET_TRACKS
     }
 }
 

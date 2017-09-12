@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as Actions from '../../actions';
 import Player from '../Player';
+import Header from '../Header';
 import { CLIENT_ID } from '../../constants/authConstant';
 import { getImageUrl } from '../../utils/utils';
 import { IMAGE_SIZES } from '../../constants/songConstant';
@@ -20,7 +21,7 @@ export class Stream extends Component {
         const { actions } = this.props;
         const tracksBoard = ReactDOM.findDOMNode(this.refs.tracksBoard);
         tracksBoard.addEventListener('scroll', this.onScroll, false);
-        actions.fetchAllTracks();
+        actions.fetchAllTracks('trance');
     }
 
     componentWillUnmount() {
@@ -65,6 +66,7 @@ export class Stream extends Component {
 
         return (
             <div className="tracks-board" ref="tracksBoard">
+                <Header actions={actions} />
                 <div className="container">
                     {
                         tracks.map((track, key) => {

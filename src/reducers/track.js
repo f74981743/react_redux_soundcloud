@@ -17,8 +17,14 @@ export default function(state = initialState, action) {
             return setIsFetching(state, action);
         case actionTypes.SET_NEXT_HREF:
             return setNextHref(state, action);
+        case actionTypes.RESET_TRACKS:
+            return resetTracks(state);
     }
     return state;
+}
+
+function resetTracks(state) {
+    return {...state, tracks: []};
 }
 
 function setTracks(state, action) {
