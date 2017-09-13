@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-//import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as Actions from '../../actions';
 import classNames from 'classnames';
+import SearchBar from './SearchBar';
+
 
 export default class Header extends Component {
     constructor(props, context) {
@@ -46,6 +47,7 @@ export default class Header extends Component {
                     <a href="#" onClick={() => {
                         this.changeTags('chill');
                     }}>TROPICAL</a>
+                    <SearchBar actions={actions} />
                 </div>
             </div>
         )
