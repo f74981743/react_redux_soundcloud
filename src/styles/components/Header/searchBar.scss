@@ -1,0 +1,98 @@
+$background-color: #2A2E37;
+$search-bg-color: #242628;
+$icon-color: #00FEDE;
+$transition: all .5s ease;
+
+.search {
+    width: 40px;
+    height: 40px;
+    background-color: $search-bg-color;
+    position: relative;
+    overflow: hidden;
+    transition: $transition;
+    &:before {
+        content: '';
+        display: block;
+        width: 3px;
+        height: 100%;
+        position: relative;
+        background-color: $icon-color;
+        transition: $transition;
+    }
+    &.open {
+        width: 150px;
+        &:before {
+            height: 16px;
+            position: absolute;
+        }
+    }
+}
+
+.search-box {
+    width: 100%;
+    height: 100%;
+    box-shadow: none;
+    border: none;
+    background-color: transparent;
+    color: #fff;
+    font-size: 16px;
+    &:focus {
+        outline: none;
+    }
+}
+
+.search-button {
+    width: 40px;
+    height: 40px;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.search-icon {
+    width: 16px;
+    height: 16px;
+    border-radius: 16px;
+    border: 1px solid $icon-color;
+    display: block;
+    position: relative;
+    margin-left: 2px;
+    transition: $transition;
+    &:before, &:after {
+        content: '';
+        width: 1px;
+        height: 7px;
+        position: absolute;
+        right: -2px;
+        top: 11px;
+        display: block;
+        background-color: $icon-color;
+        transform: rotate(-45deg);
+        transition: $transition;
+    }
+    &:after {
+        right: -7px;
+        top: 16px;
+    }
+    .open & {
+        margin: 0;
+        width: 25px;
+        height: 25px;
+        border-radius: 25px;
+        &:before {
+            transform: rotate(52deg);
+            right: 10px;
+            top: 11px;
+            height: 7px;
+        }
+        &:after {
+            transform: rotate(-230deg);
+            right: 10px;
+            top: 7px;
+            height: 7px;
+        }
+    }
+}

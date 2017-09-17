@@ -53,7 +53,7 @@ export class Stream extends Component {
     }
 
     render() {
-        const { actions, player, user, tracks, activeTrack, isFetching, playlist } = this.props;
+        const { actions, player, user, tracks, activeTrack, isFetching, playlist, currentTags } = this.props;
         const loadingCls = classNames({
            'loading': true,
            hide: isFetching === false
@@ -66,7 +66,7 @@ export class Stream extends Component {
 
         return (
             <div className="tracks-board" ref="tracksBoard">
-                <Header actions={actions} />
+                <Header actions={actions} currentTags={currentTags} />
                 <div className="container">
                     {
                         tracks.map((track, key) => {
@@ -123,14 +123,15 @@ export class Stream extends Component {
 
 function mapStateToProps(state) {
     const { user } = state.auth;
-    const { tracks, activeTrack, isFetching } = state.track;
+    const { tracks, activeTrack, isFetching, currentTags } = state.track;
     return {
         player: state.player,
         playlist: state.playlist,
         user,
         tracks,
         activeTrack,
-        isFetching
+        isFetching,
+        currentTags
     }
 }
 

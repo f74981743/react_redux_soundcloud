@@ -4,7 +4,8 @@ const initialState = {
     tracks: [],
     nextHref: null,
     isFetching: false,
-    activeTrack: null
+    activeTrack: null,
+    currentTags: null
 };
 
 export default function(state = initialState, action) {
@@ -19,6 +20,8 @@ export default function(state = initialState, action) {
             return setNextHref(state, action);
         case actionTypes.RESET_TRACKS:
             return resetTracks(state);
+        case actionTypes.SET_CURRENT_TAGS:
+            return setCurrentTags(state, action);
     }
     return state;
 }
@@ -45,4 +48,9 @@ function setNextHref(state, action) {
 function setIsFetching(state, action) {
     const { isFetching } = action;
     return { ...state, isFetching: isFetching };
+}
+
+function setCurrentTags(state, action) {
+    const { currentTags } = action;
+    return { ...state, currentTags: currentTags };
 }

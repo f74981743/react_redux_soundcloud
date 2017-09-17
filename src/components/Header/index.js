@@ -17,7 +17,7 @@ export default class Header extends Component {
     }
 
     render() {
-        const { hide, songs, actions } = this.props;
+        const { actions, currentTags } = this.props;
 
         const headerCls = classNames({
             'header': true
@@ -47,7 +47,7 @@ export default class Header extends Component {
                     <a href="#" onClick={() => {
                         this.changeTags('chill');
                     }}>TROPICAL</a>
-                    <SearchBar actions={actions} />
+                    <SearchBar actions={actions} currentTags={currentTags} />
                 </div>
             </div>
         )

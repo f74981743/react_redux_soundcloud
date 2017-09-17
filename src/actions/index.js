@@ -89,11 +89,11 @@ function fetchMe(session) {
     }
 };
 
-export function fetchAllTracks(tags, isResetTrack) {
+export function fetchAllTracks(tags, isResetTrack, keyword) {
     return function (dispatch, getState) {
         const { track } = getState();
-        var url = `//api.soundcloud.com/tracks?linked_partitioning=1&client_id=${CLIENT_ID}&offset=0&limit=50&tags=${tags}`;
-        if (track.nextHref !== null) url = track.nextHref;
+        var url = `//api.soundcloud.com/tracks?linked_partitioning=1&client_id=${CLIENT_ID}&offset=0&limit=50&tags=${tags}&q=${keyword}`;
+        if (track.nextHref !== null && !isResetTrack) url = track.nextHref;
         
         if (track.isFetching === false) {
             dispatch(setIsFetching(true));
@@ -103,7 +103,9 @@ export function fetchAllTracks(tags, isResetTrack) {
                     if (isResetTrack) dispatch(resetTracks());
                     dispatch(setTracks(data.collection));
                     dispatch(setNextHref(data.next_href));
+                    dispatch(setCurrentTags(tags));
                     dispatch(setIsFetching(false));
+                    
                 });
         }
     }
@@ -121,6 +123,13 @@ export function setTracks(tracks) {
         tracks
     };
 };
+
+export function setCurrentTags(tags) {
+    return {
+        type: types.SET_CURRENT_TAGS,
+        currentTags: tags
+    };
+}
 
 export function setNextHref(nextHref) {
     return {

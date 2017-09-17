@@ -24,19 +24,15 @@ export default class SearchBar extends Component {
     }
 
     keyUpSearchBar(event) {
+        const { actions, currentTags } = this.props;
         if ((event.keyCode || event.which) === 13) { // if press enter
             console.log('press enter');
+            console.log(event.target.value);
+            actions.fetchAllTracks(currentTags, true, event.target.value);
         }
     }
 
     render() {
-        const {player} = this.props;
-
-        const playlistBtnCls = classNames({
-            'playlist-btn': true,
-            'btn': true
-        });
-
         return (
             <div className="search">
                 <input type="search" className="search-box" onFocus={this.focusSearchBar.bind(this)} onBlur={this.blurSearchBar.bind(this)} onKeyUp={this.keyUpSearchBar.bind(this)} />
