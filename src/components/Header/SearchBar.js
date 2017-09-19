@@ -6,7 +6,7 @@ export default class SearchBar extends Component {
         super(props, context);
 
         this.state = {
-            isHidePlayList: true
+            isExpandedSearchBar: false
         };
     }
 
@@ -33,11 +33,18 @@ export default class SearchBar extends Component {
     }
 
     render() {
+        const searchBarCls = classNames({
+            'search': true,
+            'open': this.state.isExpandedSearchBar
+        });
+
         return (
-            <div className="search">
+            <div className={searchBarCls}>
                 <input type="search" className="search-box" onFocus={this.focusSearchBar.bind(this)} onBlur={this.blurSearchBar.bind(this)} onKeyUp={this.keyUpSearchBar.bind(this)} />
                 <span className="search-button">
-                    <span className="search-icon"></span>
+                    <span className="search-icon" onClick={() => {
+                        this.setState({isExpandedSearchBar: !this.state.isExpandedSearchBar});
+                    }}></span>
                 </span>
             </div>
         )
