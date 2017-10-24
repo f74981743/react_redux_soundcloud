@@ -84,8 +84,7 @@ export class Stream extends Component {
                             const image = getImageUrl(track.artwork_url, IMAGE_SIZES.LARGE);
                             return (
                                 <div className="track" onDoubleClick={() => {
-                                    actions.playTrack(track);
-                                    actions.handlePlay();
+                                    this.handlePlay(track)
                                 }} key={key}>
                                     <div className="track-img" style={{backgroundImage: `url(${image})`}}></div>
                                     <div className="track-info">
