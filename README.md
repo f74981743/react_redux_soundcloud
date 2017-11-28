@@ -1,6 +1,8 @@
 # react_redux_soundcloud
 
-Soundcloud client with ReactJs
+A SoundCloud API client built with React, Redux.
+
+[live demo](https://ancient-tor-95600.herokuapp.com/)
 
 
 -----------------------
