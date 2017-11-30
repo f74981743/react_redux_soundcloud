@@ -2,7 +2,7 @@ import { IMAGE_SIZES } from '../constants/songConstant';
 
 export function getImageUrl(str, size = null) {
     if (!str) {
-        return '';
+        return 'src/images/post_album.png';
     }
 
     str = str.replace('http:' , '');
@@ -10,8 +10,6 @@ export function getImageUrl(str, size = null) {
     switch(size) {
     case IMAGE_SIZES.LARGE:
         return str.replace('large', IMAGE_SIZES.LARGE);
-    /*case IMAGE_SIZES.XLARGE:
-        return str.replace('large', IMAGE_SIZES.XLARGE);*/
     default:
         return str;
     }

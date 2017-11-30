@@ -22,13 +22,14 @@ export default class Player extends Component {
 
     render() {
         const { src, player, playlist, actions, activeTrack } = this.props;
+        const artworkUrl = (activeTrack.artwork_url) ? activeTrack.artwork_url : 'src/images/post_album.png';
         return (
             <div className="player">
                 <Audio
                     {...this.props}
                 />
                 <div className="track-info">
-                    <img src={activeTrack.artwork_url} />
+                    <img src={artworkUrl} />
                     <div className="track-text">
                         <div className="title">{activeTrack.title}</div>
                         <div className="author">{activeTrack.user.username}</div>

@@ -17,6 +17,10 @@ $transition: all .5s ease;
             position: absolute;
         }
     }
+
+    @media screen and (min-width: 300px) and (max-width: 450px) {
+        display: none;
+    }
 }
 
 /* IE10+ */
