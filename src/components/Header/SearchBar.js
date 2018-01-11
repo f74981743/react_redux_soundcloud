@@ -13,22 +13,19 @@ export default class SearchBar extends Component {
     focusSearchBar(event) {
         event.preventDefault();
         const { actions } = this.props;
-        console.log('focus');
     }
 
     blurSearchBar(event) {
         event.preventDefault();
         const { actions } = this.props;
-
-        console.log('blur');
     }
 
     keyUpSearchBar(event) {
         const { actions, currentTags } = this.props;
+        const tracksBoard = document.querySelector('.tracks-board');
         if ((event.keyCode || event.which) === 13) { // if press enter
-            console.log('press enter');
-            console.log(event.target.value);
             actions.fetchAllTracks(currentTags, true, event.target.value);
+            tracksBoard.scrollTop = 0;
         }
     }
 

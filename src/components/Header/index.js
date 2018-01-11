@@ -17,6 +17,8 @@ export default class Header extends Component {
 
     changeTags(tags) {
         const { actions } = this.props;
+        const tracksBoard = document.querySelector('.tracks-board');
+        tracksBoard.scrollTop = 0;
         actions.setNextHref(null);
         actions.fetchAllTracks(tags, true);
         this.setState({

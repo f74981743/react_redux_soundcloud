@@ -61,7 +61,6 @@ export default class Audio extends Component {
         audioElement.addEventListener('timeupdate', e => (this.handleTimeUpdate && this.handleTimeUpdate()))
         this.addKeyDownEvent();
         this.componentWillReceiveProps(this.props);
-
         audioElement.addEventListener('ended', e => (this.handleSongEnded && this.handleSongEnded()));
     }
 
