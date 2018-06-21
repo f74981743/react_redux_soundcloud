@@ -105,7 +105,6 @@ export function fetchAllTracks(tags, isResetTrack, keyword) {
                     dispatch(setNextHref(data.next_href));
                     dispatch(setCurrentTags(tags));
                     dispatch(setIsFetching(false));
-                    
                 });
         }
     }
