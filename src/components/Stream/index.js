@@ -68,8 +68,8 @@ export class Stream extends Component {
                                     <div className="track-info">
                                         <img src={track.user.avatar_url} />
                                         <div className="track-detail">
-                                            <div className="title">{track.title}</div>
-                                            <div className="author">{track.user.username}</div>
+                                            <div className="title">{track.title || '--'}</div>
+                                            <div className="tag-list">{track.tag_list || '--'}</div>
                                         </div>
                                     </div>
                                     <div className="track-button">

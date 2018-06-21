@@ -71,13 +71,13 @@
             .track-detail {
                 float: left;
                 width: 100%;
-                .title, .author {
+                .title, .tag-list {
                     margin-top: 5px;
                     white-space: nowrap;
                     overflow: hidden;
                     text-overflow: ellipsis;
                 }
-                .author {
+                .tag-list {
                     font-size: 12px;
                     color: #7d7e7f;
                 }
