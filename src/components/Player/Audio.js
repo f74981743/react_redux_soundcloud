@@ -1,9 +1,38 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
 export default class Audio extends Component {
     constructor(props, context) {
         super(props, context);
+    }
+
+
+    componentDidMount() {
+        const audioElement = ReactDOM.findDOMNode(this.refs.audio);
+        audioElement.addEventListener('timeupdate', e => (this.handleTimeUpdate && this.handleTimeUpdate()))
+        this.addKeyDownEvent();
+        this.componentWillReceiveProps(this.props);
+
+        audioElement.addEventListener('ended', e => (this.handleSongEnded && this.handleSongEnded()));
+    }
+
+    componentWillReceiveProps(props) {
+        const { src, player } = props;
+        const audioElement = ReactDOM.findDOMNode(this.refs.audio);
+
+        if (src != audioElement.src) audioElement.src = src;
+        if (player.isPaused !== audioElement.paused) {
+            player.isPaused ? audioElement.pause() : audioElement.play();
+        }
+        if (player.volume != audioElement.volume) audioElement.volume = player.volume;
+        if (player.isMuted != audioElement.muted) audioElement.muted = player.isMuted;
+    }
+
+    render() {
+        const { src } = this.props;
+        return (
+            <audio ref='audio' id='audio' src={src}></audio>
+        )
     }
 
     handleProgressPercent(currentTime, duration) {
@@ -26,7 +55,7 @@ export default class Audio extends Component {
     }
 
     addKeyDownEvent() {
-        const {actions, player} = this.props;
+        const { actions } = this.props;
         const audioElement = ReactDOM.findDOMNode(this.refs.audio);
 
         document.addEventListener('keydown', function(event) {
@@ -53,34 +82,5 @@ export default class Audio extends Component {
                 }
             }
         }
-    }
-
-    componentDidMount() {
-        const { actions,  playlist, activeTrack } = this.props;
-        const audioElement = ReactDOM.findDOMNode(this.refs.audio);
-        audioElement.addEventListener('timeupdate', e => (this.handleTimeUpdate && this.handleTimeUpdate()))
-        this.addKeyDownEvent();
-        this.componentWillReceiveProps(this.props);
-
-        audioElement.addEventListener('ended', e => (this.handleSongEnded && this.handleSongEnded()));
-    }
-
-    componentWillReceiveProps(props) {
-        const {src, player} = props;
-        const audioElement = ReactDOM.findDOMNode(this.refs.audio);
-
-        if (src != audioElement.src) audioElement.src = src;
-        if (player.isPaused !== audioElement.paused) {
-            player.isPaused ? audioElement.pause() : audioElement.play();
-        }
-        if (player.volume != audioElement.volume) audioElement.volume = player.volume;
-        if (player.isMuted != audioElement.muted) audioElement.muted = player.isMuted;
-    }
-
-    render() {
-        const { src } = this.props;
-        return (
-            <audio ref='audio' id='audio' src={src}></audio>
-        )
     }
 }

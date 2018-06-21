@@ -15,6 +15,7 @@ export class Stream extends Component {
     constructor(props, context) {
         super(props, context);
         this.onScroll = this.onScroll.bind(this);
+        this.handlePause = this.handlePause.bind(this);
     }
 
     componentDidMount() {
@@ -27,29 +28,6 @@ export class Stream extends Component {
     componentWillUnmount() {
         const tracksBoard = ReactDOM.findDOMNode(this.refs.tracksBoard);
         tracksBoard.removeEventListener('scroll', this.onScroll, false);
-    }
-
-    handlePlay(track) {
-        const { activeTrack, actions } = this.props;
-        
-        if (track !== activeTrack) {
-            actions.playTrack(track);
-        }
-        actions.handlePlay();
-        actions.fetchPlayList();
-    }
-
-    handlePause() {
-        const {actions} = this.props;
-        actions.handlePause();
-    }
-
-    onScroll() {
-        const { actions } = this.props;
-        const tracksBoard = ReactDOM.findDOMNode(this.refs.tracksBoard);
-        if (tracksBoard.scrollTop >= (tracksBoard.scrollHeight - tracksBoard.offsetHeight - 200)) {
-            actions.fetchAllTracks();
-        }
     }
 
     render() {
@@ -98,7 +76,7 @@ export class Stream extends Component {
                                         <div className={playBtnCls} onClick={() => {
                                             this.handlePlay(track);
                                         }}></div>
-                                        <div className={pauseBtnCls} onClick={this.handlePause.bind(this)}></div>
+                                        <div className={pauseBtnCls} onClick={this.handlePause}></div>
                                     </div>
                                     
                                 </div>
@@ -117,6 +95,29 @@ export class Stream extends Component {
                 }
             </div>
         );
+    }
+
+    handlePlay(track) {
+        const { activeTrack, actions } = this.props;
+        
+        if (track !== activeTrack) {
+            actions.playTrack(track);
+        }
+        actions.handlePlay();
+        actions.fetchPlayList();
+    }
+
+    handlePause() {
+        const {actions} = this.props;
+        actions.handlePause();
+    }
+
+    onScroll() {
+        const { actions } = this.props;
+        const tracksBoard = ReactDOM.findDOMNode(this.refs.tracksBoard);
+        if (tracksBoard.scrollTop >= (tracksBoard.scrollHeight - tracksBoard.offsetHeight - 200)) {
+            actions.fetchAllTracks();
+        }
     }
 }
 

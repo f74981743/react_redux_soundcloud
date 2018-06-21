@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
-import * as Actions from '../../actions';
 import classNames from 'classnames';
 import SearchBar from './SearchBar';
 
@@ -15,23 +13,11 @@ export default class Header extends Component {
         };
     }
 
-    changeTags(tags) {
-        const { actions } = this.props;
-        actions.setNextHref(null);
-        actions.fetchAllTracks(tags, true);
-        this.setState({
-            currentGenre: tags,
-            isGenrePanelHide: true
-        })
-    }
-
     render() {
         const { actions, currentTags } = this.props;
-
         const headerCls = classNames({
             'header': true
         });
-
         const genrePanelCls = classNames({
             'genre-panel': true,
             'hide': this.state.isGenrePanelHide
@@ -72,5 +58,15 @@ export default class Header extends Component {
                 </div>
             </div>
         )
+    }
+
+    changeTags(tags) {
+        const { actions } = this.props;
+        actions.setNextHref(null);
+        actions.fetchAllTracks(tags, true);
+        this.setState({
+            currentGenre: tags,
+            isGenrePanelHide: true
+        })
     }
 }

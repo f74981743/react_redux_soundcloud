@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
 export default class VolumeBar extends Component {
@@ -9,9 +9,32 @@ export default class VolumeBar extends Component {
         }
     }
 
+    render() {
+        const { player } = this.props;
+        return (
+            <div className='vol-bar'>
+                <div className='vol-bar-inner'
+                    ref={(c) => this.volBar = c}
+                    onClick={this.mouseClick.bind(this)}
+                    onMouseDown={this.mouseDown.bind(this)}
+                >
+                    <div className='vol-current'
+                        ref="volumeBody"
+                        style={{width: player.volume * 100 + '%'}}
+                    >
+                    </div>
+                    <span className='circle'
+                        ref="volumeDragger"
+                        style={{left: player.volume * 100 + '%'}}
+                    ></span>
+                </div>
+            </div>
+        )
+    }
+
     mouseDown(e) {
         e.preventDefault();
-        const {actions} = this.props;
+        const { actions } = this.props;
         actions.setDragging(true);
         this.setState({dragging: true});
         document.addEventListener('mousemove', this.mouseMove.bind(this))
@@ -22,7 +45,7 @@ export default class VolumeBar extends Component {
         e.preventDefault();
         const volumeBody = ReactDOM.findDOMNode(this.refs.volumeBody);
         const volumeDragger = ReactDOM.findDOMNode(this.refs.volumeDragger);
-        const {actions, handleSlideVolume} = this.props;
+        const { actions, handleSlideVolume } = this.props;
         
         document.removeEventListener('mousemove', this.mouseMove.bind(this));
 
@@ -49,7 +72,6 @@ export default class VolumeBar extends Component {
         e.preventDefault();
         const volumeBody = ReactDOM.findDOMNode(this.refs.volumeBody);
         const volumeDragger = ReactDOM.findDOMNode(this.refs.volumeDragger);
-        const {actions, dragging, handleSlideVolume} = this.props;
         if(this.state.dragging){
 			var barRect = this.volBar.getClientRects()[0];
             var width = (e.clientX - barRect.left) / (barRect.right - barRect.left);
@@ -66,7 +88,7 @@ export default class VolumeBar extends Component {
     }
 
     mouseClick(e) {
-        const {actions, handleSlideVolume} = this.props;
+        const { handleSlideVolume } = this.props;
         const volumeBody = ReactDOM.findDOMNode(this.refs.volumeBody);
         const volumeDragger = ReactDOM.findDOMNode(this.refs.volumeDragger);
         var barRect = this.volBar.getClientRects()[0];
@@ -81,28 +103,5 @@ export default class VolumeBar extends Component {
         volumeBody.style.width = `${width * 100}%`;
         volumeDragger.style.left = `${width * 100}%`;
         handleSlideVolume(width);
-    }
-
-    render() {
-        const {player} = this.props;
-        return (
-            <div className='vol-bar'>
-                <div className='vol-bar-inner'
-                    ref={(c) => this.volBar = c}
-                    onClick={this.mouseClick.bind(this)}
-                    onMouseDown={this.mouseDown.bind(this)}
-                >
-                    <div className='vol-current'
-                        ref="volumeBody"
-                        style={{width: player.volume * 100 + '%'}}
-                    >
-                    </div>
-                    <span className='circle'
-                        ref="volumeDragger"
-                        style={{left: player.volume * 100 + '%'}}
-                    ></span>
-                </div>
-            </div>
-        )
     }
 }

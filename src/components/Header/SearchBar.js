@@ -8,28 +8,10 @@ export default class SearchBar extends Component {
         this.state = {
             isExpandedSearchBar: false
         };
-    }
 
-    focusSearchBar(event) {
-        event.preventDefault();
-        const { actions } = this.props;
-        console.log('focus');
-    }
-
-    blurSearchBar(event) {
-        event.preventDefault();
-        const { actions } = this.props;
-
-        console.log('blur');
-    }
-
-    keyUpSearchBar(event) {
-        const { actions, currentTags } = this.props;
-        if ((event.keyCode || event.which) === 13) { // if press enter
-            console.log('press enter');
-            console.log(event.target.value);
-            actions.fetchAllTracks(currentTags, true, event.target.value);
-        }
+        this.handleFocus = this.handleFocus.bind(this);
+        this.handleBlur = this.handleBlur.bind(this);
+        this.handleKeyUp = this.handleKeyUp.bind(this);
     }
 
     render() {
@@ -40,7 +22,11 @@ export default class SearchBar extends Component {
 
         return (
             <div className={searchBarCls}>
-                <input type="search" className="search-box" onFocus={this.focusSearchBar.bind(this)} onBlur={this.blurSearchBar.bind(this)} onKeyUp={this.keyUpSearchBar.bind(this)} />
+                <input type="search" 
+                    className="search-box" 
+                    onFocus={this.handleFocus} 
+                    onBlur={this.handleBlur} 
+                    onKeyUp={this.handleKeyUp} />
                 <span className="search-button">
                     <span className="search-icon" onClick={() => {
                         this.setState({isExpandedSearchBar: !this.state.isExpandedSearchBar});
@@ -48,5 +34,22 @@ export default class SearchBar extends Component {
                 </span>
             </div>
         )
+    }
+
+    handleFocus(event) {
+        event.preventDefault();
+    }
+
+    handleBlur(event) {
+        event.preventDefault();
+    }
+
+    handleKeyUp(event) {
+        const { actions, currentTags } = this.props;
+        if ((event.keyCode || event.which) === 13) { // if press enter
+            console.log('press enter');
+            console.log(event.target.value);
+            actions.fetchAllTracks(currentTags, true, event.target.value);
+        }
     }
 }
